@@ -14,6 +14,7 @@
         <module>config-server</module>
         <module>eureka-server</module>
         <module>organization-service</module>
+        <module>zuul-server</module>
     </modules>
 
     <properties>
