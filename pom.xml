@@ -12,7 +12,14 @@
     <modules>
         <module>licensing-service</module>
         <module>config-server</module>
+        <module>eureka-server</module>
+        <module>organization-service</module>
     </modules>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
