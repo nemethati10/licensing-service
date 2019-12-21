@@ -4,7 +4,6 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.thoughtmechanix.license.client.OrganizationFeignClient;
 import com.thoughtmechanix.license.client.OrganizationRestTemplateClient;
-import com.thoughtmechanix.license.config.ServiceConfig;
 import com.thoughtmechanix.license.model.License;
 import com.thoughtmechanix.license.model.Organization;
 import com.thoughtmechanix.license.repository.LicenseRepository;
@@ -21,17 +20,14 @@ public class LicenseService {
 
     private LicenseRepository licenseRepository;
 
-    private ServiceConfig serviceConfig;
-
     @Autowired
     private OrganizationRestTemplateClient organizationRestClient;
 
+    @Autowired
     private OrganizationFeignClient organizationFeignClient;
 
-    public LicenseService(LicenseRepository licenseRepository, ServiceConfig serviceConfig, OrganizationFeignClient organizationFeignClient) {
+    public LicenseService(LicenseRepository licenseRepository) {
         this.licenseRepository = licenseRepository;
-        this.serviceConfig = serviceConfig;
-        this.organizationFeignClient = organizationFeignClient;
     }
 
     public License getLicense(String licenseId) {
@@ -44,7 +40,7 @@ public class LicenseService {
 
     public License getLicense(String organizationId, String licenseId) {
         License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
-        return license.withComment(serviceConfig.getExampleProperty());
+        return license.withComment("");
     }
 
     public void saveLicense(License license) {
@@ -69,25 +65,7 @@ public class LicenseService {
                 .withOrganizationName(org.getName())
                 .withContactName(org.getContactName())
                 .withContactEmail(org.getContactEmail())
-                .withContactPhone(org.getContactPhone())
-                .withComment(serviceConfig.getExampleProperty());
-    }
-
-    private Organization retrieveOrgInfo(String organizationId, final String clientType) {
-        Organization organization = null;
-
-        switch (clientType) {
-            case "rest":
-                organization = organizationFeignClient.getOrganization(organizationId);
-                break;
-            case "feign":
-                organization = organizationRestClient.getOrganization(organizationId);
-                break;
-            default:
-                organization = organizationRestClient.getOrganization(organizationId);
-        }
-
-        return organization;
+                .withContactPhone(org.getContactPhone());
     }
 
     @HystrixCommand(fallbackMethod = "buildFallbackLicenseList",
@@ -120,6 +98,22 @@ public class LicenseService {
         }
     }
 
+    private Organization retrieveOrgInfo(String organizationId, final String clientType) {
+        Organization organization = null;
+
+        switch (clientType) {
+            case "rest":
+                organization = organizationFeignClient.getOrganization(organizationId);
+                break;
+            case "feign":
+                organization = organizationRestClient.getOrganization(organizationId);
+                break;
+            default:
+                organization = organizationRestClient.getOrganization(organizationId);
+        }
+
+        return organization;
+    }
 
     private List<License> buildFallbackLicenseList(String organizationId) {
         List<License> fallbackList = new ArrayList<>();

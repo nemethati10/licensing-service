@@ -2,8 +2,10 @@ package com.thoughtmechanix.license.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class Organization {
+public class Organization implements Serializable {
 
     private String id;
     private String name;

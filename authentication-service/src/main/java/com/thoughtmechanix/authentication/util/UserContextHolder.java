@@ -1,4 +1,4 @@
-package com.thoughtmechanix.zuulserver.util;
+package com.thoughtmechanix.authentication.util;
 
 import org.springframework.util.Assert;
 

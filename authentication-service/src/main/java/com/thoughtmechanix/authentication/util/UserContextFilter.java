@@ -1,4 +1,4 @@
-package com.thoughtmechanix.license.util;
+package com.thoughtmechanix.authentication.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

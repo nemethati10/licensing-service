@@ -4,19 +4,23 @@ import com.thoughtmechanix.license.model.Organization;
 import com.thoughtmechanix.license.util.UserContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 @Component
 public class OrganizationRestTemplateClient {
 
-    private RestTemplate restTemplate;
+    private static final Logger logger = LoggerFactory.getLogger(OrganizationRestTemplateClient.class);
 
-    public OrganizationRestTemplateClient(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+    //@Autowired
+    //private RestTemplate restTemplate;
+
+    @Autowired
+    private OAuth2RestTemplate restTemplate;
+
 // Calling the service directly
 //    public Organization getOrganization(String organizationId) {
 //        ResponseEntity<Organization> restExchange =
@@ -27,8 +31,6 @@ public class OrganizationRestTemplateClient {
 //
 //        return restExchange.getBody();
 //    }
-
-    private static final Logger logger = LoggerFactory.getLogger(OrganizationRestTemplateClient.class);
 
     /**
      * Calling the service through Zuul Gateway

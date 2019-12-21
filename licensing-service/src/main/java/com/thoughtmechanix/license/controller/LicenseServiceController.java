@@ -1,6 +1,5 @@
 package com.thoughtmechanix.license.controller;
 
-import com.thoughtmechanix.license.config.ServiceConfig;
 import com.thoughtmechanix.license.model.License;
 import com.thoughtmechanix.license.service.LicenseService;
 import org.slf4j.Logger;
@@ -19,14 +18,12 @@ public class LicenseServiceController {
     private static final Logger logger = LoggerFactory.getLogger(LicenseServiceController.class);
 
     private LicenseService licenseService;
-    private ServiceConfig serviceConfig;
 
     @Autowired
     private HttpServletRequest request;
 
-    public LicenseServiceController(LicenseService licenseService, ServiceConfig serviceConfig) {
+    public LicenseServiceController(LicenseService licenseService) {
         this.licenseService = licenseService;
-        this.serviceConfig = serviceConfig;
     }
 
     @GetMapping
@@ -44,8 +41,8 @@ public class LicenseServiceController {
     }
 
     @PutMapping(value = "{licenseId}")
-    public String updateLicenses(@PathVariable("licenseId") String licenseId) {
-        return String.format("This is the put");
+    public void updateLicenses(@PathVariable("licenseId") String licenseId, @RequestBody License license) {
+        licenseService.updateLicense(license);
     }
 
     @PostMapping
@@ -53,10 +50,10 @@ public class LicenseServiceController {
         licenseService.saveLicense(license);
     }
 
-    @RequestMapping(value = "{licenseId}", method = RequestMethod.DELETE)
+    @DeleteMapping(value="{licenseId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String deleteLicenses(@PathVariable("licenseId") String licenseId) {
-        return String.format("This is the Delete");
+    public void deleteLicenses( @PathVariable("licenseId") String licenseId, @RequestBody License license) {
+        licenseService.deleteLicense(license);
     }
 
     @GetMapping(value = "/{licenseId}/{clientType}")

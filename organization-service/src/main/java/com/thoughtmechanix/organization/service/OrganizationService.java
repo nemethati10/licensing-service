@@ -21,7 +21,6 @@ public class OrganizationService {
 
     public void saveOrg(Organization org) {
         org.setId(UUID.randomUUID().toString());
-
         organizationRepository.save(org);
 
     }
@@ -30,7 +29,7 @@ public class OrganizationService {
         organizationRepository.save(org);
     }
 
-    public void deleteOrg(Organization org) {
-        organizationRepository.delete(org.getId());
+    public void deleteOrg(String orgId) {
+        organizationRepository.delete(orgId);
     }
 }

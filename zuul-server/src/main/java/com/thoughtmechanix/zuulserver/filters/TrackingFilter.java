@@ -10,13 +10,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class TrackingFilter extends ZuulFilter {
 
+    private static final Logger logger = LoggerFactory.getLogger(TrackingFilter.class);
     private static final int FILTER_ORDER = 1;
     private static final boolean SHOULD_FILTER = true;
-    private static final Logger logger = LoggerFactory.getLogger(TrackingFilter.class);
 
     @Autowired
     private FilterUtils filterUtils;
-
 
     @Override
     public String filterType() {
@@ -33,10 +32,6 @@ public class TrackingFilter extends ZuulFilter {
         return SHOULD_FILTER;
     }
 
-    private String generateCorrelationId() {
-        return java.util.UUID.randomUUID().toString();
-    }
-
     @Override
     public Object run() {
         if (isCorrelationIdPresent()) {
@@ -48,7 +43,12 @@ public class TrackingFilter extends ZuulFilter {
 
         RequestContext ctx = RequestContext.getCurrentContext();
         logger.debug("Processing incoming request for {}.", ctx.getRequest().getRequestURI());
+
         return null;
+    }
+
+    private String generateCorrelationId() {
+        return java.util.UUID.randomUUID().toString();
     }
 
     private boolean isCorrelationIdPresent() {
