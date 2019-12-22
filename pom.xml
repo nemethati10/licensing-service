@@ -15,7 +15,7 @@
         <module>eureka-server</module>
         <module>organization-service</module>
         <module>zuul-server</module>
-        <module>authentication-service</module>
+        <module>zipkin-server</module>
     </modules>
 
     <properties>

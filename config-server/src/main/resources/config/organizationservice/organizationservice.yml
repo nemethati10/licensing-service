@@ -1,3 +1,4 @@
+
 example.organization.property: "I AM THE DEFAULT ORGANIZATION SERVICE"
 spring.jpa.database: "POSTGRESQL"
 spring.datasource.platform:  "postgres"

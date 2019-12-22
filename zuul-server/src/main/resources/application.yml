@@ -1,6 +1,13 @@
 server:
   port: 5555
 
+spring:
+    sleuth:
+      sampler:
+         percentage:  1
+    zipkin:
+      baseUrl:  http://localhost:9411
+
 eureka:
   instance:
     preferIpAddress: true

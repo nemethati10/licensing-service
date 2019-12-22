@@ -1,7 +1,9 @@
-security:
-  oauth2:
-   resource:
-      userInfoUri: http://localhost:8901/auth/user
+spring:
+    sleuth:
+      sampler:
+         percentage:  1
+    zipkin:
+      baseUrl:  http://localhost:9411
 
 eureka:
   instance:

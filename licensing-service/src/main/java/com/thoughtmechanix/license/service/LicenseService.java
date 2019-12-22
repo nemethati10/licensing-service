@@ -2,7 +2,6 @@ package com.thoughtmechanix.license.service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import com.thoughtmechanix.license.client.OrganizationFeignClient;
 import com.thoughtmechanix.license.client.OrganizationRestTemplateClient;
 import com.thoughtmechanix.license.model.License;
 import com.thoughtmechanix.license.model.Organization;
@@ -22,9 +21,6 @@ public class LicenseService {
 
     @Autowired
     private OrganizationRestTemplateClient organizationRestClient;
-
-    @Autowired
-    private OrganizationFeignClient organizationFeignClient;
 
     public LicenseService(LicenseRepository licenseRepository) {
         this.licenseRepository = licenseRepository;
@@ -103,9 +99,6 @@ public class LicenseService {
 
         switch (clientType) {
             case "rest":
-                organization = organizationFeignClient.getOrganization(organizationId);
-                break;
-            case "feign":
                 organization = organizationRestClient.getOrganization(organizationId);
                 break;
             default:

@@ -25,4 +25,4 @@ spring:
      config:
        server:
            native:
-              searchLocations: classpath:config/,classpath:config/licensingservice, classpath:config/organizationservice, classpath:config/authenticationservice
+              searchLocations: classpath:config/,classpath:config/licensingservice, classpath:config/organizationservice
