@@ -1,0 +1,1 @@
+CREATE DATABASE eagle_eye_local;
