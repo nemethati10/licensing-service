@@ -21,7 +21,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <docker.image.name>nemethati10/eureka-server</docker.image.name>
+        <docker.image.name>${project.artifactId}</docker.image.name>
         <docker.image.tag>initial</docker.image.tag>
     </properties>
 
@@ -29,7 +29,7 @@
     <build>
         <plugins>
             <!-- We use the Resources plugin to filer Dockerfile and run.sh, it inserts actual JAR filename -->
-            <!-- The final Dockerfile will be created in target/dockerfile/Dockerfile -->
+            <!-- The final Dockerfile will be created in target/Dockerfile -->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
@@ -41,7 +41,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/dockerfile</outputDirectory>
+                            <outputDirectory>${basedir}/target</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>src/main/docker</directory>
@@ -58,7 +58,7 @@
                 <version>0.4.10</version>
                 <configuration>
                     <imageName>${docker.image.name}:${docker.image.tag}</imageName>
-                    <dockerDirectory>${basedir}/src/main/docker</dockerDirectory>
+                    <dockerDirectory>${basedir}/src/main</dockerDirectory>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>

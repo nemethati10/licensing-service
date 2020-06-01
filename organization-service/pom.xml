@@ -42,7 +42,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <docker.image.name>nemethati10/organization-service</docker.image.name>
+        <docker.image.name>${project.artifactId}</docker.image.name>
         <docker.image.tag>initial</docker.image.tag>
     </properties>
 
@@ -61,7 +61,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/dockerfile</outputDirectory>
+                            <outputDirectory>${basedir}/target/</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>src/main/docker</directory>

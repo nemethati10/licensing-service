@@ -1,18 +1,21 @@
 version: '2'
 services:
   eurekaserver:
-   image:   nemethati10/eureka-server:initial
+   build: ../eureka-server/target/
+   #image: <docker-registry>/eureka-server:initial
    ports:
        - "8761:8761"
   configserver:
-    image: nemethati10/config-server:initial
+    build: ../config-server/target/
+    #image:  config-server:initial
     ports:
        - "8888:8888"
     environment:
        EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
        EUREKASERVER_PORT: "8761"
   zuulserver:
-    image: nemethati10/zuul-server:initial
+    build: ../zuul-server/target/
+    #image: <docker-registry>/zuul-server:initial
     ports:
       - "5555:5555"
     environment:
@@ -34,7 +37,8 @@ services:
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   licensingservice:
-    image: nemethati10/licensing-service:initial
+    build:  ../licensing-service/target/
+    #image: <docker-registry>/licensing-service:initial
     ports:
       - "8080:8080"
     environment:
@@ -48,7 +52,8 @@ services:
       ZUULSERVER_PORT:     "5555"
 
   organizationservice:
-    image: nemethati10/organization-service:initial
+    build: ../organization-service/target/
+    #image: <docker-registry>/organization-service:initial
     ports:
       - "8081:8081"
     environment:
